@@ -6,6 +6,10 @@ const app: Express = express();
 const port = process.env.PORT;
 const baseURL = process.env.APP_BASE_URL;
 
+// Middlewares previous config
+app.use(express.urlencoded({ extended: false }))
+app.use(express.json())
+
 // All Routes
 app.use("/", routes);
 
