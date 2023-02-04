@@ -2,26 +2,25 @@
  * All routes with the pattern "/v1/**"
  */
 import { Request, Response, Router as expressRouter } from "express";
-import { validateMetaApiKey } from "../../controllers/authController";
+import { v1Index } from "../../common/controllers/generalController";
 // Routes
-import farmatodoRoutes from './farmatodo'
+import LocatelRouter from '../../modules/locatel/router/router'
+import FarmatodoRouter from '../../modules/farmatodo/router/router'
+
 
 const router = expressRouter();
 
 // Middleware specific for these routes
-router.use(validateMetaApiKey);
+// router.use(() => { });
 
 router.get('/', (req: Request, res: Response) => {
-    res.json({
-        message: `This is v1 index!`,
-        baseEndpoints: [
-            "/v1/farmatodo",
-        ],
-    });
+    v1Index(req, res)
 })
 
+// Locatel services
+router.use("/locatel", LocatelRouter);
 // Farmatodo services
-router.use("/farmatodo", farmatodoRoutes);
+router.use("/farmatodo", FarmatodoRouter);
 
 export default router;
 
